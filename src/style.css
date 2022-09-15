@@ -1,0 +1,49 @@
+.yurlocbutt {
+  float: right;
+}
+
+.length-size {
+  width: 50%;
+  font-family: "PT Sans", sans-serif;
+  color: #0d6efd;
+}
+
+.today {
+  text-align: right;
+  font-size: 18px;
+}
+.date {
+  text-align: left;
+  font-size: 18px;
+  font-weight: bold;
+}
+.city {
+  font-size: 48px;
+  font-weight: 900;
+}
+.temp-today {
+  font-size: 24px;
+  font-weight: 600;
+  padding: 0px;
+}
+.temperature {
+  font-size: 58px;
+  text-align: left;
+}
+
+.unitTemperature {
+  text-decoration: none;
+  font-size: 22px;
+  vertical-align: top;
+}
+.position {
+  text-align: center;
+}
+.day-of-week {
+  font-size: 24px;
+  font-weight: 500;
+}
+.date-temp-of-week {
+  font-size: 16px;
+  font-weight: 500;
+}
