@@ -97,6 +97,12 @@ function showDataUserDisplay(response) {
   document.querySelector("#wind").innerHTML = wind;
   let clouds = response.data.weather[0].description;
   document.querySelector("#clouds").innerHTML = clouds;
+  let iconElement = document.querySelector("#icon");
+  iconElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  iconElement.setAttribute("alt", response.data.weather[0].description);
 }
 
 function searchCityFirstPage(city) {
