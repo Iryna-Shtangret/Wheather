@@ -83,8 +83,8 @@ let placeChangeDay = document.querySelector("#realDateNow");
 placeChangeDay.innerHTML = `${realDay} ${hour}:${minutes} `;
 
 function showDataUserDisplay(response) {
-  let curentTemperature = Math.round(response.data.main.temp);
-  document.querySelector("#temp").innerHTML = curentTemperature;
+  curentTemperature = response.data.main.temp;
+  document.querySelector("#temp").innerHTML = Math.round(curentTemperature);
   let curentTemperatureMax = Math.round(response.data.main.temp_max);
   document.querySelector("#tempMax").innerHTML = curentTemperatureMax;
   let curentTemperatureMin = Math.round(response.data.main.temp_min);
@@ -132,7 +132,33 @@ function displayDataUser(event) {
   navigator.geolocation.getCurrentPosition(userPosition);
 }
 
+function showFahrenheit(event) {
+  event.preventDefault();
+  let tempElement = document.querySelector("#temp");
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+  let temperFahrenheit = (curentTemperature * 9) / 5 + 32;
+
+  tempElement.innerHTML = Math.round(temperFahrenheit);
+}
+
+function showCelsius(event) {
+  event.preventDefault();
+  let tempElement = document.querySelector("#temp");
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+  tempElement.innerHTML = Math.round(curentTemperature);
+}
+
+let curentTemperature = null;
+
 let userButton = document.querySelector("#userGeoposition");
 userButton.addEventListener("click", displayDataUser);
+
+let fahrenheitLink = document.querySelector("#fahrenheit");
+fahrenheitLink.addEventListener("click", showFahrenheit);
+
+let celsiusLink = document.querySelector("#celsius");
+celsiusLink.addEventListener("click", showCelsius);
 
 searchCityFirstPage("Kyiv");
