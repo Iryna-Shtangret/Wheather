@@ -42,7 +42,12 @@
   text-decoration: none;
 }
 .active {
-  color: #0d6efd;
+  color: #8eb8f6;
+  cursor: default;
+  font-weight: bold;
+}
+
+.active:hover {
   text-decoration: none;
 }
 

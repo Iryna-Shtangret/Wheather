@@ -135,8 +135,9 @@ function displayDataUser(event) {
 function showFahrenheit(event) {
   event.preventDefault();
   let tempElement = document.querySelector("#temp");
-  celsiusLink.classList.remove("active");
-  fahrenheitLink.classList.add("active");
+  console.log(tempElement.innerHTML);
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
   let temperFahrenheit = (curentTemperature * 9) / 5 + 32;
 
   tempElement.innerHTML = Math.round(temperFahrenheit);
@@ -145,8 +146,8 @@ function showFahrenheit(event) {
 function showCelsius(event) {
   event.preventDefault();
   let tempElement = document.querySelector("#temp");
-  celsiusLink.classList.add("active");
-  fahrenheitLink.classList.remove("active");
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
   tempElement.innerHTML = Math.round(curentTemperature);
 }
 
