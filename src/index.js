@@ -1,64 +1,3 @@
-/*let weather = {
-  paris: {
-    temp: 19.7,
-    humidity: 80,
-  },
-  tokyo: {
-    temp: 17.3,
-    humidity: 50,
-  },
-  lisbon: {
-    temp: 30.2,
-    humidity: 20,
-  },
-  "san francisco": {
-    temp: 20.9,
-    humidity: 100,
-  },
-  oslo: {
-    temp: -5,
-    humidity: 20,
-  },
-};
-
-// code here
-let city = prompt("Enter a city");
-city = city.trim();
-city = city.toLowerCase();
-if (weather[city] !== undefined) {
-  let humid = weather[city].humidity;
-  let temperature = weather[city].temp;
-  let celsiusTemp = Math.round(temperature);
-  let fahrenheitTemp = Math.round(1.8 * temperature + 32);
-
-  alert(
-    `It is currently ${celsiusTemp}°C (${fahrenheitTemp}°F) in ${city} with a humidity of ${humid}%`
-  );
-} else {
-  alert(
-    `Sorry, we don't know the weather for this city, try going to https://www.google.com/search?q=weather+${city}`
-  );
-}
-*/
-
-/*function convertTempInC(event) {
-  event.preventDefault();
-  let temperCelius = document.querySelector("#temp");
-  temperCelius.innerHTML = `17`;
-  //alert("hello");
-}
-let pressC = document.querySelector("#celsius");
-pressC.addEventListener("click", convertTempInC);
-
-function convertTempInF(event) {
-  event.preventDefault();
-  let temperFahrenheit = document.querySelector("#temp");
-  temperFahrenheit.innerHTML = `66`;
-}
-let pressF = document.querySelector("#fahrenheit");
-pressF.addEventListener("click", convertTempInF);
-*/
-
 let now = new Date();
 let dayOfWeek = now.getDay();
 let week = [
@@ -82,30 +21,46 @@ if (minutes < 10) {
 let placeChangeDay = document.querySelector("#realDateNow");
 placeChangeDay.innerHTML = `${realDay} ${hour}:${minutes} `;
 
+function formatDay(dataInTime) {
+  let data = new Date(dataInTime * 1000);
+  let day = data.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+
 function displayForecast(response) {
-  console.log(response.data.daily);
+  forecast = response.data.daily;
   let elementsOfDays = document.querySelector("#weatherFor5days");
   let forecastHTML = `<div class="row">`;
-  days = ["Mon", "Tue", "Wed", "Thu", "Fri"];
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `           
+  forecast.forEach(function (arrayAllData, index) {
+    if (index < 5) {
+      forecastHTML =
+        forecastHTML +
+        `           
               <div class="col position">
-                <span class="day-of-week">${day}</span>
-                <br />
-                <span class="date-temp-of-week">22/08</span>
-                <br />
+                <div class="day-of-week">${formatDay(
+                  arrayAllData.dt
+                )}</div>                          
+                <div>
                 <img
-                  src="images/weather-symbols-1.svg"
-                  alt="sunny"
+                  src="http://openweathermap.org/img/wn/${
+                    arrayAllData.weather[0].icon
+                  }@2x.png"
+                  alt=""
                   width="50%"
                 />
-                <br />
-                <span class="date-temp-of-week">30/18 °C</span>
+                </div>
+                
+                <span class="date-temp-of-week">${Math.round(
+                  arrayAllData.temp.max
+                )}° <span class="date-temp-of-week-min">${Math.round(
+          arrayAllData.temp.min
+        )}°</span></span>
               </div>     
             `;
+    }
   });
+
   forecastHTML = forecastHTML + `</div>`;
 
   elementsOfDays.innerHTML = forecastHTML;
@@ -145,7 +100,6 @@ function searchCityFirstPage(city) {
   let apiKey = "f81614abe2395d5dfecd45b9298041de";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(showDataUserDisplay);
-  //console.log(apiUrl);
 }
 
 function changeCity(event) {
@@ -171,7 +125,6 @@ function displayDataUser(event) {
 function showFahrenheit(event) {
   event.preventDefault();
   let tempElement = document.querySelector("#temp");
-  console.log(tempElement.innerHTML);
   celsiusLink.classList.add("active");
   fahrenheitLink.classList.remove("active");
   let temperFahrenheit = (curentTemperature * 9) / 5 + 32;
